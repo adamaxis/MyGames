@@ -7,9 +7,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import dmacc.beans.Contact;
+import dmacc.beans.Status;
 import dmacc.controller.BeanConfiguration;
-import dmacc.beans.Address;
+import dmacc.beans.Game;
 import dmacc.repository.ContactRepository;
 
 @SpringBootApplication
@@ -17,7 +17,6 @@ public class SpringListStarterApplication implements CommandLineRunner{
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringListStarterApplication.class, args);
-		
 	}
 	
 	@Autowired
@@ -25,21 +24,27 @@ public class SpringListStarterApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
+
 		ApplicationContext appContext = new AnnotationConfigApplicationContext(BeanConfiguration.class);
-		Contact c = appContext.getBean("contact", Contact.class);
-		c.setRelationship("best friend");
-		repo.save(c);
+		Status entry1 = appContext.getBean("status", Status.class);
+		entry1.setGame(new Game("Dark Souls 3", "PC", 2016));
+		repo.save(entry1);
 		
 		
-		Contact d = new Contact("Sandra Boynton", "555-555-5557", "friend");
-		Address a = new Address("123 Main Street", "Des Moines", "IA");
-		d.setAddress(a);
-		repo.save(d);
+		Status entry2 = new Status("Daniel D.", "Unbeaten");
+		Game genericGame = appContext.getBean("game", Game.class);
+		entry2.setGame(genericGame);
+		repo.save(entry2);
 		
-		List<Contact> allMyContacts = repo.findAll();
-		for(Contact people: allMyContacts) {
-			System.out.println(people.toString());
+		Status entry3 = new Status("Daniel D.", "Beaten");
+		Game game2 = new Game("Dungeon Crawl: Stone Soup", "PC", 1997);
+		entry3.setGame(game2);
+		repo.save(entry3);
+		
+		
+		List<Status> allGames = repo.findAll();
+		for(Status stat: allGames) {
+			System.out.println(stat.toString());
 		}
 		
 		((AnnotationConfigApplicationContext) appContext).close();

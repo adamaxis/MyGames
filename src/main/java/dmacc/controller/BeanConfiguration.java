@@ -3,25 +3,24 @@ package dmacc.controller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import dmacc.beans.Address;
-import dmacc.beans.Contact;
+import dmacc.beans.Game;
+import dmacc.beans.Status;
 
 @Configuration
 public class BeanConfiguration {
 	
 	@Bean
-	public Contact contact() {
-		Contact bean = new Contact("Eric Carle");
-		//bean.setName("Dr. Seuss");
-		//bean.setPhoneNumber("555-555-5555");
-		//bean.setRelationship("friend");
-		bean.setAddress(address());
+	public Status status() {
+		// default player and game status - if it exists, I've likely beaten it
+		Status bean = new Status("Daniel Draper", "Beaten");
+		bean.setGame(game());
 		return bean;
 	}
 
 	@Bean
-	public Address address() {
-		Address bean = new Address("123 Main Street", "Des Moines", "IA");
+	public Game game() {
+		// generic game
+		Game bean = new Game("[Game Name]", "[Game Console]", 1900);
 		return bean;
 	}
 
