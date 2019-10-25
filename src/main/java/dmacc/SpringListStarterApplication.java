@@ -40,6 +40,11 @@ public class SpringListStarterApplication implements CommandLineRunner{
 		Game game2 = new Game("Dungeon Crawl: Stone Soup", "PC", 1997);
 		entry3.setGame(game2);
 		repo.save(entry3);
+
+		Status entry4 = new Status("Daniel Draper", "Beaten");
+		Game game3 = new Game("Pillars Of Eternity", "PC/Xbox/Switch", 2015);
+		entry4.setGame(game3);
+		repo.save(entry4);
 		
 		
 		List<Status> allGames = repo.findAll();
